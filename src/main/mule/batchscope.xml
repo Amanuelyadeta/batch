@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="d95c1f0b-f0fa-44b6-8ec5-4d906d6a24e3" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<flow name="batchscopeFlow" doc:id="800e47b4-9cd1-4845-aa42-91a758a5c072" >
+		<http:listener doc:name="Listener" doc:id="44e7e6d3-2f71-415c-9808-bf8abe6d2d5d" config-ref="HTTP_Listener_config" path="/BS" outputMimeType="application/json">
+			<http:response >
+				<http:body ><![CDATA[#["success"]]]></http:body>
+			</http:response>
+		</http:listener>
+		<logger level="INFO" doc:name="Logger" doc:id="3014bc49-e579-499e-ad96-386565f45d38" message="log......befor batch scope:#[payload]"/>
+		<batch:job jobName="batchscopeBatch_Job" doc:id="6c8dae54-a371-4cc9-8e66-9481c30c6474" blockSize="3">
+			<batch:process-records >
+				<batch:step name="Batch_Step" doc:id="9faa0ee2-b8ea-40f5-9df7-e46563ea81cb" >
+					<logger level="INFO" doc:name="Logger" doc:id="183a1f7d-6a18-4665-9eb2-38b0874d1e8a" message="log .......log in batch step"/>
+					<batch:aggregator doc:name="Batch Aggregator" doc:id="2e39c17f-246a-4f31-8cf8-7f4d3a65938b" size="3">
+						<logger level="INFO" doc:name="Logger" doc:id="22fc52f3-967e-417d-b69f-5c2fb525515d" message="log ......log in aggeregator"/>
+					</batch:aggregator>
+				</batch:step>
+			</batch:process-records>
+			<batch:on-complete >
+				<logger level="INFO" doc:name="Logger" doc:id="d1c8f99a-7b77-4f8e-86a0-bf55f2021f06" message="log..... log in complet"/>
+			</batch:on-complete>
+		</batch:job>
+	</flow>
+</mule>
