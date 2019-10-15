@@ -15,7 +15,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<http:body ><![CDATA[#["success"]]]></http:body>
 			</http:response>
 		</http:listener>
-		<logger level="INFO" doc:name="Logger" doc:id="3014bc49-e579-499e-ad96-386565f45d38" message="log......befor batch scope:#[payload]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="3014bc49-e579-499e-ad96-386565f45d38" message="logg......befor batch scope:#[payload]"/>
 		<batch:job jobName="batchscopeBatch_Job" doc:id="6c8dae54-a371-4cc9-8e66-9481c30c6474" blockSize="3">
 			<batch:process-records >
 				<batch:step name="Batch_Step" doc:id="9faa0ee2-b8ea-40f5-9df7-e46563ea81cb" >
