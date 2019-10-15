@@ -26,7 +26,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				</batch:step>
 			</batch:process-records>
 			<batch:on-complete >
-				<logger level="INFO" doc:name="Logger" doc:id="d1c8f99a-7b77-4f8e-86a0-bf55f2021f06" message="log..... log in complet"/>
+				<logger level="INFO" doc:name="Logger" doc:id="d1c8f99a-7b77-4f8e-86a0-bf55f2021f06" message="logg..... log in complet"/>
 			</batch:on-complete>
 		</batch:job>
 	</flow>
